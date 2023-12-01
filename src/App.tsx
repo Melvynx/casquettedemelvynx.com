@@ -1,11 +1,20 @@
+import { Html, useProgress } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 import { Experience } from './Experience';
+
+function Loader() {
+  const { progress } = useProgress();
+  return <Html center>{progress} % loaded</Html>;
+}
 
 function App() {
   return (
     <div id="canvas-container" className="relative">
       <Canvas>
-        <Experience />
+        <Suspense fallback={<Loader />}>
+          <Experience />
+        </Suspense>
       </Canvas>
       <div className="sticker-cta ">
         <a
